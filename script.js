@@ -1,57 +1,45 @@
-let percentage = 0;
-const percentDisplay = document.getElementById("percent");
-const progressBar = document.getElementById("progressBar");
-const addBtn = document.getElementById("addBtn");
-const removeBtn = document.getElementById("removeBtn");
-const incrementValueInput = document.getElementById("incrementValue");
-const celebrationMessage = document.getElementById("celebrationMessage");
-
-// Sync progress value with localStorage
-function syncProgress() {
-  localStorage.setItem('progress', percentage);  // Save progress in localStorage
-  percentDisplay.textContent = `${percentage}%`;
-  progressBar.value = percentage;
-
-  // Display celebration message when progress reaches 100%
-  if (percentage === 100) {
-    celebrationMessage.style.display = "block";
-  } else {
-    celebrationMessage.style.display = "none";
-  }
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background-color: #f4f4f4;
 }
 
-// When progress changes in one tab, it will sync to others
-window.addEventListener('storage', (event) => {
-  if (event.key === 'progress') {
-    percentage = parseInt(event.newValue);
-    syncProgress();
-  }
-});
+.container {
+  text-align: center;
+  width: 80%;
+  max-width: 600px;
+}
 
-// Check if there's progress saved in localStorage when page loads
-window.onload = () => {
-  const savedProgress = localStorage.getItem('progress');
-  if (savedProgress) {
-    percentage = parseInt(savedProgress);
-    syncProgress();
-  }
-};
+progress {
+  width: 100%;
+  height: 30px;
+}
 
-// Add button: Increment the percentage
-addBtn.addEventListener("click", () => {
-  const incrementValue = parseInt(incrementValueInput.value);
-  if (!isNaN(incrementValue) && percentage + incrementValue <= 100) {
-    percentage += incrementValue;
-    syncProgress();
-  }
-});
+.buttons {
+  margin-top: 20px;
+}
 
-// Remove button: Decrease the percentage
-removeBtn.addEventListener("click", () => {
-  const decrementValue = parseInt(incrementValueInput.value);
-  if (!isNaN(decrementValue) && percentage - decrementValue >= 0) {
-    percentage -= decrementValue;
-    syncProgress();
-  }
-  celebrationMessage.style.display = "none";
-});
+button {
+  padding: 10px 20px;
+  margin: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+input {
+  padding: 5px;
+  font-size: 16px;
+  width: 50px;
+}
+
+.celebration-message {
+  display: none;
+  font-size: 20px;
+  margin-top: 20px;
+  color: green;
+  font-weight: bold;
+}
