@@ -1,45 +1,49 @@
-body {
-  font-family: Arial, sans-serif;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  margin: 0;
-  background-color: #f4f4f4;
+let percentage = 0;
+const percentDisplay = document.getElementById("percent");
+const progressBar = document.getElementById("progressBar");
+const addBtn = document.getElementById("addBtn");
+const removeBtn = document.getElementById("removeBtn");
+const incrementValueInput = document.getElementById("incrementValue");
+const celebrationMessage = document.getElementById("celebrationMessage");
+
+// Check if there's saved progress in localStorage
+window.onload = () => {
+  const savedProgress = localStorage.getItem('progress');
+  if (savedProgress) {
+    percentage = parseInt(savedProgress);
+    updateProgress();
+  }
+};
+
+// Update progress both on the screen and in localStorage
+function updateProgress() {
+  localStorage.setItem('progress', percentage);  // Save progress to localStorage
+  percentDisplay.textContent = `${percentage}%`;
+  progressBar.value = percentage;
+
+  // Show celebration message when 100% is reached
+  if (percentage === 100) {
+    celebrationMessage.style.display = "block";
+  } else {
+    celebrationMessage.style.display = "none";
+  }
 }
 
-.container {
-  text-align: center;
-  width: 80%;
-  max-width: 600px;
-}
+// Add button: Increment the percentage
+addBtn.addEventListener("click", () => {
+  const incrementValue = parseInt(incrementValueInput.value);
+  if (!isNaN(incrementValue) && percentage + incrementValue <= 100) {
+    percentage += incrementValue;
+    updateProgress();
+  }
+});
 
-progress {
-  width: 100%;
-  height: 30px;
-}
-
-.buttons {
-  margin-top: 20px;
-}
-
-button {
-  padding: 10px 20px;
-  margin: 5px;
-  font-size: 16px;
-  cursor: pointer;
-}
-
-input {
-  padding: 5px;
-  font-size: 16px;
-  width: 50px;
-}
-
-.celebration-message {
-  display: none;
-  font-size: 20px;
-  margin-top: 20px;
-  color: green;
-  font-weight: bold;
-}
+// Remove button: Decrease the percentage
+removeBtn.addEventListener("click", () => {
+  const decrementValue = parseInt(incrementValueInput.value);
+  if (!isNaN(decrementValue) && percentage - decrementValue >= 0) {
+    percentage -= decrementValue;
+    updateProgress();
+  }
+  celebrationMessage.style.display = "none";
+});
