@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Custom Percentage Progress Bar with Confetti</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Confetti library -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>Progress: <span id="percent">0%</span></h1>
+    <progress id="progressBar" value="0" max="100"></progress>
+    
+    <div class="input-container">
+      <label for="incrementValue">Increment by: </label>
+      <input type="number" id="incrementValue" min="1" max="100" value="1">
+    </div>
+
+    <div class="buttons">
+      <button id="addBtn">Add</button>
+      <button id="removeBtn">Remove</button>
+    </div>
+
+    <div id="celebrationMessage" class="celebration-message">Hooray! Your son can have fun now!</div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
